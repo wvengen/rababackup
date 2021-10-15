@@ -66,3 +66,8 @@ available in which snapshots) (similar to OAndBackupX).
 
 See also the [steps OAndBackupX follows](OANDBACKUPX.md) when backing up and restoring.
 
+## Remote backups
+
+That will be done with ssh. Authentication by key, perhaps later add password too.
+Remember to use [batch mode](https://borgbackup.readthedocs.io/en/stable/usage/notes.html#ssh-batch-mode).
+
