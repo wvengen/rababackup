@@ -64,3 +64,5 @@ interface for restoring, and then looking at what apps are available. As a secon
 the apps could be listed with relevant backups (but that needs some caching of what is
 available in which snapshots) (similar to OAndBackupX).
 
+See also the [steps OAndBackupX follows](OANDBACKUPX.md) when backing up and restoring.
+
