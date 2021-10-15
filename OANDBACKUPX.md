@@ -16,6 +16,7 @@ When data files are gathered, the following restrictions apply:
 ### APK
 
 [`android.content.pm.ApplicationInfo#sourceDir`](https://developer.android.com/reference/android/content/pm/ApplicationInfo#sourceDir)
+
 [`android.content.pm.ApplicationInfo#splitSourceDirs`](https://developer.android.com/reference/android/content/pm/ApplicationInfo#splitSourceDirs)
 
 ### Data
@@ -65,7 +66,7 @@ When data files are gathered, the following restrictions apply:
 
 ## Restore
 
-Source files: `RestoreAppAction.kt`.
+Source files: `RestoreAppAction.kt`, `ShellHandler.kt`.
 Happens in the following order.
 
 ### APK
