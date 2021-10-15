@@ -74,7 +74,7 @@ Happens in the following order.
 1. Extract APK(s) in a staging directory (subdirectory of `context.getExternalFilesDir()`).
 2. When _disable verification_ is enabled, run: `settings put global verifier_verify_adb_installs 0`
 3. Install main APK: `cat "<app.apk>" | pm install -t -r -S <filesize_of_app>`
-4. Install extra APKs: `cat "<app_n.apk>" | install -p <base_package_name> -t -r -S <filesize_of_app_n>`
+4. Install extra APKs: `cat "<app_n.apk>" | pm install -p <base_package_name> -t -r -S <filesize_of_app_n>`
 5. When _disable verification_ is enabled, run: `settings put global verifier_verify_adb_installs 1`
 
 Add `-g` to `pm install` when _restore all permissions_ is enabled.
