@@ -90,7 +90,7 @@ Running Borg Backup on Android is not so straightforward. There are basically th
 
 - running it within [Termux](https://termux.org/) ([borg issue](https://github.com/borgbackup/borg/issues/1155))
 - getting it to work on [python-for-android](https://github.com/kivy/python-for-android) (I've got a prototype barely running)
-- packaging compiled binaries in an Android app (e.g. the Termux package, I've got that working in ~20MB)
+- packaging compiled binaries in an Android app (e.g. from Termux packages, see [borg-bin-termux](borg-bin-termux))
 
 
 ### Approach 2a. Termux scripts
