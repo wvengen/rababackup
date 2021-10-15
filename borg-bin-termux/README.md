@@ -8,10 +8,16 @@ Make sure to adapt the variable `ARCHS` in the script to your needs.
 
 The package includes `borg`, `ssh` and `ssh-keygen`.
 
-TODO show how to run, including unpacking both `borg-common.tgz` and `borg-<arch>.tgz`,
-as well as setting `LD_LIBRARY_PATH` and `PYTHONPATH`/`PYTHONHOME`.
+Extract both the borg-common archive and the one for your architecture on the
+phone to a place where it's allowed to run files (not `/sdcard` or `/data/media`).
+Then run borg with the command:
 
-Possibilities to reduce size (currently 8MB common + 7MB i686):
+    LD_LIBRARY_PATH=`pwd`/lib \
+    PYTHONHOME=`pwd` \
+    PYTHONPATH=`realpath lib/python*/site-packages/borgbackup-*` \
+    bin/python -m borg
+
+Possibilities to reduce size (currently 9MB common + 7MB i686):
 - remove more unused Python modules
 - replace `openssh` by a smaller alternative
 

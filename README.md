@@ -22,6 +22,7 @@ Borg is a Python program, which is run on the phone. Luckily Termux has this wor
 we'll gather all dependencies in an archive to run it from within the app, so one doesn't need
 to install Termux. See [borg-bin-termux](borg-bin-termux) for more information.
 
+
 ## Backing up
 
 Ideally Borg works directly on the phone's filesystem, using its logic to determine which files

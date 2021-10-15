@@ -24,7 +24,7 @@ get_package_url() {
 
 get_bootstrap_url() {
   arch="$1"
-  curl -s https://api.github.com/repos/termux/termux-packages/releases/latest | grep '/bootstrap-$arch.zip' | cut -d\" -f4
+  curl -s https://api.github.com/repos/termux/termux-packages/releases/latest | grep "/bootstrap-$arch.zip" | cut -d\" -f4
 }
 
 mkdir -p cache
@@ -43,13 +43,16 @@ for arch in $ARCHS; do
   rm -Rf "prefix-$arch/data"
 
   # add missing libraries from bootstrap
-  #[ -e "cache/$bootstrap-$arch.zip" ] || curl -q -o "cache/$bootstrap-$arch.zip" `get_bootstrap_url "$arch"`
-  #unzip -d "prefix-$arch/" "cache/$bootstrap-$arch.zip" "lib/libz*"
+  [ -e "cache/$bootstrap-$arch.zip" ] || curl -s -L -o "cache/bootstrap-$arch.zip" `get_bootstrap_url "$arch"`
+  unzip -q -d "prefix-$arch/" "cache/bootstrap-$arch.zip" "lib/libz*"
+
+  # we need pkg_resources from setuptools
+  unzip -q -d "prefix-$arch"/lib/python*/ "prefix-$arch"/lib/python*/ensurepip/_bundled/setuptools-*.whl "pkg_resources/*"
 
   # remove files we don't use to save space
   rm -Rf "prefix-$arch"/{share,libexec,include,var,etc}
   rm -Rf "prefix-$arch"/lib/{krb5,pkgconfig,engines*}
-  rm -Rf "prefix-$arch"/lib/python*/{lib2to3,html,xmlrpc,venv,email,sqlite3,curses,unittest,dbm,config-*,ensurepip,wsgiref,http,pydoc_data}
+  rm -Rf "prefix-$arch"/lib/python*/{lib2to3,html,xmlrpc,venv,sqlite3,curses,dbm,config-*,ensurepip,wsgiref,http,pydoc_data}
   rm -Rf "prefix-$arch"/lib/python*/site-packages/xcbgen
   find "prefix-$arch"/lib/python*/distutils/ ! -type d | grep -v '/version\.\(py\|.*\.pyc\)$' | xargs rm -Rf
   find "prefix-$arch"/bin ! -type d | grep -v '/\(python[0-9.]*\|ssh\|ssh-keygen\|borg\)$' | xargs rm -f
