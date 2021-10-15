@@ -47,13 +47,14 @@ for arch in $ARCHS; do
   #unzip -d "prefix-$arch/" "cache/$bootstrap-$arch.zip" "lib/libz*"
 
   # remove files we don't use to save space
-  rm -Rf "prefix-$arch"/{share,var,libexec,include}
+  rm -Rf "prefix-$arch"/{share,libexec,include,var,etc}
   rm -Rf "prefix-$arch"/lib/{krb5,pkgconfig,engines*}
-  rm -Rf "prefix-$arch"/lib/python*/{lib2to3,html,xmlrpc,venv,email,sqlite3,curses,unittest,dbm,config-*,ensurepip,wsgiref,http}
+  rm -Rf "prefix-$arch"/lib/python*/{lib2to3,html,xmlrpc,venv,email,sqlite3,curses,unittest,dbm,config-*,ensurepip,wsgiref,http,pydoc_data}
+  rm -Rf "prefix-$arch"/lib/python*/site-packages/xcbgen
+  find "prefix-$arch"/lib/python*/distutils/ ! -type d | grep -v '/version\.\(py\|.*\.pyc\)$' | xargs rm -Rf
   find "prefix-$arch"/bin ! -type d | grep -v '/\(python[0-9.]*\|ssh\|ssh-keygen\|borg\)$' | xargs rm -f
 
-  # TODO split arch-dependent from arg-independent files
-
-  # create final archive
-  tar -c -z -C "prefix-$arch" -f "borg-$arch.tgz" .
+  # create final archives
+  tar -c -z -C "prefix-$arch" --exclude \*.so --exclude \*.so.\* --exclude bin --exclude bin/* -f "borg-common.tgz" .
+  ( cd "prefix-$arch" && find . -type f -name \*.so -o -name \*.so.\* | xargs tar -c -z -f "../borg-$arch.tgz" ./bin )
 done
