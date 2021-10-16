@@ -45,6 +45,7 @@ for arch in $ARCHS; do
   # add missing libraries from bootstrap
   [ -e "cache/$bootstrap-$arch.zip" ] || curl -s -L -o "cache/bootstrap-$arch.zip" `get_bootstrap_url "$arch"`
   unzip -q -d "prefix-$arch/" "cache/bootstrap-$arch.zip" "lib/libz*"
+  [ ! -e "prefix-$arch"/lib/libz.so.1 ] && ln -s `cd "prefix-$arch"/lib/ && ls libz.so.* | head -n1` "prefix-$arch"/lib/libz.so.1
 
   # we need pkg_resources from setuptools
   unzip -q -d "prefix-$arch"/lib/python*/ "prefix-$arch"/lib/python*/ensurepip/_bundled/setuptools-*.whl "pkg_resources/*"
