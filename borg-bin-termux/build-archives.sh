@@ -43,7 +43,7 @@ for arch in $ARCHS; do
   rm -Rf "prefix-$arch/data"
 
   # add missing libraries from bootstrap
-  [ -e "cache/$bootstrap-$arch.zip" ] || curl -s -L -o "cache/bootstrap-$arch.zip" `get_bootstrap_url "$arch"`
+  [ -e "cache/bootstrap-$arch.zip" ] || curl -s -L -o "cache/bootstrap-$arch.zip" `get_bootstrap_url "$arch"`
   unzip -q -d "prefix-$arch/" "cache/bootstrap-$arch.zip" "lib/libz*"
   [ ! -e "prefix-$arch"/lib/libz.so.1 ] && ln -s `cd "prefix-$arch"/lib/ && ls libz.so.* | head -n1` "prefix-$arch"/lib/libz.so.1
 
@@ -56,7 +56,11 @@ for arch in $ARCHS; do
   rm -Rf "prefix-$arch"/lib/python*/{lib2to3,html,xmlrpc,venv,sqlite3,curses,dbm,config-*,ensurepip,wsgiref,http,pydoc_data}
   rm -Rf "prefix-$arch"/lib/python*/site-packages/xcbgen
   find "prefix-$arch"/lib/python*/distutils/ ! -type d | grep -v '/version\.\(py\|.*\.pyc\)$' | xargs rm -Rf
-  find "prefix-$arch"/bin ! -type d | grep -v '/\(python[0-9.]*\|ssh\|ssh-keygen\|borg\)$' | xargs rm -f
+  find "prefix-$arch"/bin ! -type d | grep -v '/\(python[0-9.]*\|ssh\|ssh-keygen\)$' | xargs rm -f
+
+  # move borgbackup from site-packages to main pythonpath to simplify invocation
+  mv "prefix-$arch"/lib/python*/site-packages/borgbackup-*/borg "prefix-$arch"/lib/python*/
+  rm -Rf "prefix-$arch"/lib/python*/site-packages/borgbackup-*
 
   # create final archives
   tar -c -z -C "prefix-$arch" --exclude \*.so --exclude \*.so.\* --exclude bin --exclude bin/* -f "borg-common.tgz" .

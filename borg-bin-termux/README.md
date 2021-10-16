@@ -14,7 +14,6 @@ Then run borg with the command:
 
     LD_LIBRARY_PATH=`pwd`/lib \
     PYTHONHOME=`pwd` \
-    PYTHONPATH=`realpath lib/python*/site-packages/borgbackup-*` \
     bin/python -m borg
 
 Possibilities to reduce size (currently 9MB common + 7MB i686):
