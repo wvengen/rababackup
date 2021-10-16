@@ -26,15 +26,12 @@ to install Termux. See [borg-bin-termux](borg-bin-termux) for more information.
 ## Backing up
 
 Ideally Borg works directly on the phone's filesystem, using its logic to determine which files
-need to be stored. This is relatively easy.
+need to be stored. This is expected to be relatively easy.
 
-This to investigate:
+The order in which files are added to an archive is important: restore expects a certain order,
+so that it can work efficiently.
 
-- Figure out what paths need to be backed up.
-
-- Figure out how stable these paths are (same across Android versions?).
-
-- Don't store cached/generated parts: dex, oat, tempfiles, cached files, ...
+See [ARCHIVE_LAYOUT](ARCHIVE_LAYOUT.md) for details.
 
 
 ## Restoring
