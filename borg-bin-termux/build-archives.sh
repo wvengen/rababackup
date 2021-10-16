@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ARCHS="i686"
+#ARCHS="i686 x86_64 arm aarch64'
 
 BORG_PKGS="
   attr libacl
